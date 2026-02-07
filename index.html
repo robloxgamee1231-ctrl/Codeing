@@ -2,190 +2,111 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus-XP | Ultimate Anime Dashboard</title>
+    <title>Titan-Z Hub</title>
     <style>
-        :root {
-            --xp-blue: #245edb;
-            --xp-orange: #ff8c00;
-            --bling-gold: #ffd700;
-            --anime-red: #ff4d4d;
-        }
-
-        body, html {
-            margin: 0; padding: 0; height: 100%;
-            font-family: 'Tahoma', sans-serif;
-            overflow: hidden;
-            background-color: #000;
-        }
-
-        /* Anime Wallpaper Engine */
+        body, html { margin: 0; height: 100%; overflow: hidden; font-family: 'Segoe UI', sans-serif; }
+        
+        /* Desktop Background */
         #desktop {
             width: 100%; height: 100vh;
-            background: url('https://images.alphacoders.com/605/605592.png'); /* Default OPM/Anime BG */
+            background: url('https://wallpaperaccess.com/full/151121.jpg') no-repeat center center;
             background-size: cover;
-            background-position: center;
-            transition: background 0.5s ease-in-out;
-            position: relative;
+            transition: 0.5s;
         }
 
-        /* Windows XP Taskbar Styling */
+        /* Windows 11 Centered Taskbar */
         #taskbar {
-            position: absolute; bottom: 0; width: 100%; height: 40px;
-            background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #1941a5 100%);
-            display: flex; align-items: center; z-index: 1000;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
+            position: fixed; bottom: 10px; left: 50%;
+            transform: translateX(-50%);
+            width: 600px; height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
+            display: flex; justify-content: center; align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        #start-button {
-            background: linear-gradient(to bottom, #388e3c 0%, #4caf50 50%, #388e3c 100%);
-            color: white; padding: 0 15px; height: 100%;
-            display: flex; align-items: center; font-weight: bold; font-style: italic;
-            border-radius: 0 10px 10px 0; cursor: pointer; border-right: 2px solid #2e7d32;
+        .app-icon {
+            width: 35px; height: 35px; margin: 0 15px;
+            cursor: pointer; transition: 0.2s;
+        }
+        .app-icon:hover { transform: translateY(-5px); }
+
+        /* The Theme/Settings Table */
+        #settings-ui {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: white; padding: 20px; border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: none; width: 400px;
         }
 
-        /* Desktop Icons */
-        .icon-container {
-            display: grid; grid-template-columns: repeat(auto-fill, 100px);
-            grid-gap: 20px; padding: 20px;
-        }
-
-        .icon {
-            width: 80px; text-align: center; color: white; cursor: pointer;
-            text-shadow: 2px 2px 4px #000; padding: 10px; border-radius: 5px;
-        }
-
-        .icon:hover { background: rgba(255, 255, 255, 0.2); }
-
-        /* Properties Window */
-        #properties-window {
-            position: absolute; top: 20%; left: 30%; width: 400px;
-            background: #ece9d8; border: 3px solid var(--xp-blue);
-            border-radius: 8px 8px 0 0; display: none; z-index: 2000;
-        }
-
-        .win-header {
-            background: linear-gradient(to right, #0058e6 0%, #3a93ff 100%);
-            color: white; padding: 5px 10px; font-weight: bold;
-            display: flex; justify-content: space-between;
-        }
-
-        .win-body { padding: 15px; color: #333; }
-
-        /* Proxy Grid */
-        .proxy-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-            max-height: 200px; overflow-y: auto;
-        }
-
-        .proxy-btn {
-            background: #fff; border: 1px solid #999; padding: 5px;
-            cursor: pointer; font-size: 12px;
-        }
-
-        .proxy-btn:hover { background: var(--bling-gold); }
-
-        .bling-alert {
-            position: fixed; top: 20px; right: 20px;
-            background: var(--bling-gold); color: black;
-            padding: 15px; border-radius: 10px; font-weight: bold;
-            display: none; z-index: 3000; animation: bounce 0.5s;
-        }
-
-        @keyframes bounce { 0% {transform: scale(0);} 100% {transform: scale(1);} }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+        button { cursor: pointer; padding: 5px 10px; border-radius: 5px; border: none; background: #0078d4; color: white; }
     </style>
 </head>
 <body>
 
 <div id="desktop">
-    <div class="icon-container">
-        <div class="icon" onclick="openProps('Roblox', 'Dragon Ball')">🎮<br>Roblox</div>
-        <div class="icon" onclick="openProps('Granny', 'Demon Slayer')">👵<br>Granny</div>
-        <div class="icon" onclick="openProps('YouTube', 'One Punch Man')">📺<br>YouTube</div>
-        <div class="icon" onclick="changeTheme('dbz')">🔥<br>DBZ Theme</div>
-        <div class="icon" onclick="changeTheme('ds')">⚔️<br>Slayer Theme</div>
-        <div class="icon" onclick="changeTheme('opm')">👊<br>OPM Theme</div>
-    </div>
-
-    <div id="properties-window">
-        <div class="win-header">
-            <span>System Properties</span>
-            <span onclick="closeProps()" style="cursor:pointer">X</span>
-        </div>
-        <div class="win-body">
-            <h3 id="prop-title">App Properties</h3>
-            <p><strong>Status:</strong> <span style="color:green">Iced Out ✨</span></p>
-            <p><strong>Music:</strong> YouTube API Connected</p>
-            <hr>
-            <p>Select a Proxy to Launch:</p>
-            <div class="proxy-grid" id="proxy-list">
-                </div>
-            <br>
-            <button onclick="triggerStealth()" style="width: 100%; padding: 10px; background: var(--xp-orange); font-weight: bold; cursor: pointer;">
-                LAUNCH IN STEALTH (about:blank)
-            </button>
-        </div>
+    <div id="settings-ui">
+        <h2>Theme & Music Manager</h2>
+        <table>
+            <tr>
+                <th>Series</th>
+                <th>Change BG</th>
+                <th>Theme Song</th>
+            </tr>
+            <tr>
+                <td>Dragon Ball</td>
+                <td><button onclick="changeBG('dbz')">Set</button></td>
+                <td><button onclick="playMusic('dbz')">Play</button></td>
+            </tr>
+            <tr>
+                <td>Naruto</td>
+                <td><button onclick="changeBG('naruto')">Set</button></td>
+                <td><button onclick="playMusic('naruto')">Play</button></td>
+            </tr>
+            <tr>
+                <td>Teen Titans</td>
+                <td><button onclick="changeBG('titans')">Set</button></td>
+                <td><button onclick="playMusic('titans')">Play</button></td>
+            </tr>
+        </table>
+        <br>
+        <button onclick="toggleSettings()" style="background: red;">Close</button>
     </div>
 
     <div id="taskbar">
-        <div id="start-button">SLAYER</div>
-        <div style="color: white; margin-left: 20px; font-size: 12px;" id="status-bar">
-            System Ready | Proxy: Disconnected
-        </div>
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" class="app-icon" title="Settings" onclick="toggleSettings()">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968866.png" class="app-icon" title="Roblox/Games" onclick="goBlank('Roblox')">
+        <img src="https://cdn-icons-png.flaticon.com/512/281/281769.png" class="app-icon" title="Shadow Proxy" onclick="goBlank('Shadow Proxy')">
+        <img src="https://cdn-icons-png.flaticon.com/512/888/888853.png" class="app-icon" title="Granny/Web" onclick="goBlank('Granny Web')">
     </div>
 </div>
 
-<div id="bling-notif" class="bling-alert">✨ BLING! Connection Secured ✨</div>
-
 <script>
-    const proxies = [
-        "Nimbus-Net", "Nichirin-Node", "Serious-Proxy", "Saiyan-Shield", 
-        "Thunder-Clap", "Genos-Core", "Shenron-Link", "Inosuke-Rush", 
-        "King-Engine", "Trunks-Tunnel", "Hashira-Hub", "Mumen-Rider", 
-        "Gogeta-Grid", "Muzan-Mask", "Bling-XP"
-    ];
-
-    // Load Proxy Buttons
-    const list = document.getElementById('proxy-list');
-    proxies.forEach((p, index) => {
-        let btn = document.createElement('button');
-        btn.className = 'proxy-btn';
-        btn.innerText = `P-${index + 1}: ${p}`;
-        btn.onclick = () => selectProxy(p);
-        list.appendChild(btn);
-    });
-
-    function openProps(name, theme) {
-        document.getElementById('properties-window').style.display = 'block';
-        document.getElementById('prop-title').innerText = name + " Properties";
+    function toggleSettings() {
+        const ui = document.getElementById('settings-ui');
+        ui.style.display = ui.style.display === 'block' ? 'none' : 'block';
     }
 
-    function closeProps() {
-        document.getElementById('properties-window').style.display = 'none';
+    function changeBG(type) {
+        const desk = document.getElementById('desktop');
+        if(type === 'dbz') desk.style.backgroundImage = "url('https://wallpaperaccess.com/full/151121.jpg')";
+        if(type === 'naruto') desk.style.backgroundImage = "url('https://wallpapercave.com/wp/wp1810578.jpg')";
+        if(type === 'titans') desk.style.backgroundImage = "url('https://wallpaperaccess.com/full/1330925.jpg')";
     }
 
-    function selectProxy(name) {
-        document.getElementById('status-bar').innerText = "System Ready | Proxy: " + name;
-        showBling();
-    }
-
-    function showBling() {
-        const n = document.getElementById('bling-notif');
-        n.style.display = 'block';
-        setTimeout(() => { n.style.display = 'none'; }, 2000);
-    }
-
-    function triggerStealth() {
-        // The core requirement: Redirect to about:blank
+    function goBlank(site) {
+        alert("✨ BLING! ✨ Connecting to " + site + "...");
+        // This makes it go about:blank immediately after clicking
         window.location.href = "about:blank";
     }
 
-    function changeTheme(type) {
-        const d = document.getElementById('desktop');
-        if(type === 'dbz') d.style.backgroundImage = "url('https://wallpaperaccess.com/full/151121.jpg')";
-        if(type === 'ds') d.style.backgroundImage = "url('https://wallpaperaccess.com/full/1126489.jpg')";
-        if(type === 'opm') d.style.backgroundImage = "url('https://images.alphacoders.com/605/605592.png')";
-        showBling();
+    function playMusic(type) {
+        alert("Bling! Playing " + type + " theme properties.");
+        // You can link actual YouTube IDs here for the school project
     }
 </script>
 
