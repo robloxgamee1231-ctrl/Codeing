@@ -1,163 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>JDOT GameHub</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Nexus Hub</title>
+    <style>
+        :root {
+            --glow: #ff4d4d;
+            --bg-blur: rgba(0, 0, 0, 0.7);
+        }
 
-<style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#f4f6fb;
-  color:#111;
-}
-header{
-  background:#ffffff;
-  border-bottom:1px solid #ddd;
-  padding:14px;
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-}
-#menu{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  padding:10px;
-  justify-content:center;
-}
-button{
-  border:none;
-  background:#e5e7eb;
-  padding:10px 14px;
-  border-radius:8px;
-  cursor:pointer;
-  font-size:14px;
-}
-button:hover{background:#d1d5db;}
-#gameFrame{
-  width:100%;
-  height:calc(100vh - 120px);
-  border:none;
-  background:#000;
-}
-#ai{
-  text-align:center;
-  padding:8px;
-  font-size:14px;
-}
-</style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            background-image: url('https://images.alphacoders.com/605/605592.png'); /* Default DBZ */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: 'Orbitron', sans-serif; /* A futuristic font look */
+            color: white;
+            transition: background 0.5s ease-in-out;
+        }
+
+        .main-container {
+            background: var(--bg-blur);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px var(--glow);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            margin-bottom: 40px;
+            color: #ccc;
+            letter-spacing: 2px;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .game-card:hover {
+            transform: scale(1.05) translateY(-10px);
+            background: rgba(255, 0, 0, 0.2);
+            border-color: var(--glow);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+        }
+
+        .game-card h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            z-index: 2;
+        }
+
+        .game-card .theme-tag {
+            font-size: 0.7rem;
+            color: #ffcc00;
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* Responsive adjustments for Android/Chromebook */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .game-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
 </head>
-
 <body>
 
-<header>🎮 JDOT GameHub</header>
+<div class="main-container">
+    <h1>Anime Nexus</h1>
+    <div class="subtitle">Secure Tab Cloaking Enabled</div>
 
-<div id="menu"></div>
-<div id="ai">AI Suggestion: Click 🎲 for a random game</div>
-
-<iframe id="gameFrame"></iframe>
+    <div class="game-grid" id="grid">
+        </div>
+</div>
 
 <script>
-const games = [];
+    // List of your 15 links. Replace 'url' with your chosen games or sites.
+    const myLinks = [
+        { name: "Shadow Browser", url: "https://www.google.com", theme: "Bleach" },
+        { name: "Titan Runner", url: "https://www.bing.com", theme: "AOT" },
+        { name: "Saiyan Combat", url: "https://www.duckduckgo.com", theme: "DBZ" },
+        { name: "Hollow Arena", url: "https://www.wikipedia.org", theme: "Bleach" },
+        { name: "Cursed Portal", url: "https://www.github.com", theme: "Demon Slayer" },
+        { name: "Serious Punch", url: "#", theme: "One Punch Man" },
+        { name: "Teen Titans Sim", url: "#", theme: "TT 2008" },
+        { name: "Shinobi Stealth", url: "#", theme: "Naruto" },
+        { name: "Link 9", url: "#", theme: "Anime" },
+        { name: "Link 10", url: "#", theme: "Anime" },
+        { name: "Link 11", url: "#", theme: "Anime" },
+        { name: "Link 12", url: "#", theme: "Anime" },
+        { name: "Link 13", url: "#", theme: "Anime" },
+        { name: "Link 14", url: "#", theme: "Anime" },
+        { name: "Link 15", url: "#", theme: "Anime" }
+    ];
 
-/* ---------- SIMPLE GAME ENGINE ---------- */
+    const wallpapers = [
+        'https://images.alphacoders.com/605/605592.png', // DBZ
+        'https://wallpaperaccess.com/full/36626.jpg',   // AOT
+        'https://wallpaperaccess.com/full/137645.jpg',  // Demon Slayer
+        'https://wallpaperaccess.com/full/156470.jpg',  // Bleach
+        'https://wallpaperaccess.com/full/22645.jpg'    // One Punch Man
+    ];
 
-function makeGame(title, code){
-  games.push({title, code});
-}
+    const grid = document.getElementById('grid');
 
-/* Runner */
-makeGame("Runner", `
-<body style="margin:0;background:black;overflow:hidden">
-<canvas id="c"></canvas>
-<script>
-let c=document.getElementById('c'),ctx=c.getContext('2d');
-c.width=innerWidth;c.height=innerHeight;
-let y=200,v=0;
-onclick=()=>v=-12;
-function g(){
-ctx.fillStyle='black';ctx.fillRect(0,0,c.width,c.height);
-v+=0.6;y+=v;if(y>c.height-40){y=c.height-40;v=0;}
-ctx.fillStyle='lime';ctx.fillRect(80,y,40,40);
-requestAnimationFrame(g);}g();
-</script>`);
+    // Tab Cloaking Function (The about:blank magic)
+    function openCloaked(url) {
+        if (url === "#") {
+            alert("No URL set for this link yet!");
+            return;
+        }
 
-/* Clicker */
-makeGame("Clicker", `
-<body style="background:#fff;text-align:center">
-<h1>Clicker</h1>
-<h2 id=s>0</h2>
-<button onclick="s.innerText=++n" style="font-size:24px">CLICK</button>
-<script>let n=0;</script>`);
+        const win = window.open('about:blank', '_blank');
+        if (!win) {
+            alert("Please allow pop-ups for the hub to work!");
+            return;
+        }
 
-/* Pong */
-makeGame("Pong", `
-<body style="margin:0;background:black">
-<canvas id=c></canvas>
-<script>
-let c=document.getElementById('c'),x=300,y=200,dx=3,dy=3,py=150;
-c.width=600;c.height=400;let ctx=c.getContext('2d');
-onmousemove=e=>py=e.clientY;
-function g(){
-ctx.fillRect(0,0,600,400);
-x+=dx;y+=dy;
-if(y<0||y>400)dy*=-1;
-if(x<20&&y>py&&y<py+80)dx*=-1;
-if(x>600)dx*=-1;
-ctx.fillStyle='white';
-ctx.fillRect(10,py,10,80);
-ctx.fillRect(x,y,10,10);
-requestAnimationFrame(g);}g();
-</script>`);
+        win.document.body.style.margin = '0';
+        win.document.body.style.height = '100vh';
+        const iframe = win.document.createElement('iframe');
+        iframe.style.border = 'none';
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.src = url;
+        win.document.body.appendChild(iframe);
+    }
 
-/* Dodge */
-makeGame("Dodge", `
-<body style="margin:0;background:black">
-<canvas id=c></canvas>
-<script>
-let c=document.getElementById('c'),ctx=c.getContext('2d');
-c.width=innerWidth;c.height=innerHeight;
-let px=200,py=200;
-onmousemove=e=>{px=e.clientX;py=e.clientY;}
-function g(){
-ctx.fillRect(0,0,c.width,c.height);
-ctx.fillStyle='red';
-for(let i=0;i<10;i++)
-ctx.fillRect(Math.random()*c.width,Math.random()*c.height,20,20);
-ctx.fillStyle='cyan';
-ctx.fillRect(px,py,30,30);
-requestAnimationFrame(g);}g();
-</script>`);
+    // Populate the Grid
+    myLinks.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'game-card';
+        card.innerHTML = `
+            <h3>${item.name}</h3>
+            <span class="theme-tag">${item.theme} Mode</span>
+        `;
+        
+        card.onclick = () => openCloaked(item.url);
+        
+        // Change wallpaper on hover for extra flair
+        card.onmouseenter = () => {
+            document.body.style.backgroundImage = `url('${wallpapers[index % wallpapers.length]}')`;
+        };
 
-/* ---------- AUTO GENERATE 60 GAMES ---------- */
-while(games.length<60){
-  makeGame("Arcade "+games.length, games[games.length%4].code);
-}
-
-/* ---------- UI ---------- */
-
-const menu = document.getElementById("menu");
-const frame = document.getElementById("gameFrame");
-const aiText = document.getElementById("ai");
-
-games.forEach((g,i)=>{
-  const b=document.createElement("button");
-  b.textContent=g.title;
-  b.onclick=()=>frame.srcdoc=g.code;
-  menu.appendChild(b);
-});
-
-/* AI Random Game Picker */
-const aiBtn=document.createElement("button");
-aiBtn.textContent="🎲 Random";
-aiBtn.onclick=()=>{
-  let r=Math.floor(Math.random()*games.length);
-  frame.srcdoc=games[r].code;
-  aiText.textContent="AI Suggestion: Try playing " + games[r].title;
-};
-menu.appendChild(aiBtn);
+        grid.appendChild(card);
+    });
 </script>
 
 </body>
