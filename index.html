@@ -1,150 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Anime Dashboard</title>
-    <style>
-        :root {
-            --primary-red: #ff4d4d;
-            --accent-blue: #00d2ff;
-            --bg-dark: #0a0a0a;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JDOT GameHub</title>
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-dark);
-            background-image: url('https://wallpaperaccess.com/full/151125.jpg'); /* Dragon Ball Background */
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-            font-family: 'Segoe UI', sans-serif;
-            color: white;
-        }
-
-        .container {
-            background: rgba(0, 0, 0, 0.8);
-            min-height: 100vh;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        header h1 {
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            color: var(--primary-red);
-            text-shadow: 0 0 15px var(--primary-red);
-            margin-bottom: 10px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1100px;
-            margin-top: 40px;
-        }
-
-        .link-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-        }
-
-        .link-card:hover {
-            transform: scale(1.05);
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 20px var(--accent-blue);
-            background: rgba(0, 210, 255, 0.1);
-        }
-
-        .link-card h2 {
-            margin: 0;
-            font-size: 1.2rem;
-        }
-
-        .category-label {
-            font-size: 0.8rem;
-            color: #aaa;
-            margin-top: 10px;
-            display: block;
-        }
-    </style>
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f4f6fb;
+  color:#111;
+}
+header{
+  background:#ffffff;
+  border-bottom:1px solid #ddd;
+  padding:14px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+}
+#menu{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:10px;
+  justify-content:center;
+}
+button{
+  border:none;
+  background:#e5e7eb;
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:14px;
+}
+button:hover{background:#d1d5db;}
+#gameFrame{
+  width:100%;
+  height:calc(100vh - 120px);
+  border:none;
+  background:#000;
+}
+#ai{
+  text-align:center;
+  padding:8px;
+  font-size:14px;
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
-    <header>
-        <h1>Anime Hub</h1>
-    </header>
+<header>🎮 JDOT GameHub</header>
 
-    <div class="grid" id="mainGrid">
-        </div>
-</div>
+<div id="menu"></div>
+<div id="ai">AI Suggestion: Click 🎲 for a random game</div>
+
+<iframe id="gameFrame"></iframe>
 
 <script>
-    // Replace the URLs below with your preferred legal websites or personal links
-    const sites = [
-        { name: "Dragon Ball Portal", url: "https://www.google.com", anime: "Goku Theme" },
-        { name: "Titan Dashboard", url: "https://www.wikipedia.org", anime: "AOT Theme" },
-        { name: "Soul Society", url: "https://www.bing.com", anime: "Bleach Theme" },
-        { name: "One Punch Nav", url: "https://www.duckduckgo.com", anime: "Saitama Theme" },
-        { name: "Demon Slayer Grid", url: "https://www.yahoo.com", anime: "Tanjiro Theme" },
-        { name: "Teen Titans Go", url: "https://www.reddit.com", anime: "2008 Style" },
-        { name: "Shadow Access", url: "https://www.github.com", anime: "Dark Theme" },
-        { name: "Link 8", url: "#", anime: "Generic" },
-        { name: "Link 9", url: "#", anime: "Generic" },
-        { name: "Link 10", url: "#", anime: "Generic" },
-        { name: "Link 11", url: "#", anime: "Generic" },
-        { name: "Link 12", url: "#", anime: "Generic" },
-        { name: "Link 13", url: "#", anime: "Generic" },
-        { name: "Link 14", url: "#", anime: "Generic" },
-        { name: "Link 15", url: "#", anime: "Generic" }
-    ];
+const games = [];
 
-    const grid = document.getElementById('mainGrid');
+/* ---------- SIMPLE GAME ENGINE ---------- */
 
-    function launchCloaked(url) {
-        if (url === "#") return alert("Please add a URL to this link in the code!");
-        
-        // This opens a new window with a blank address bar
-        const win = window.open('about:blank', '_blank');
-        if (!win) {
-            alert("Please allow pop-ups for this site to work!");
-            return;
-        }
+function makeGame(title, code){
+  games.push({title, code});
+}
 
-        // Sets up the window to act as a container for your site
-        win.document.body.style.margin = '0';
-        win.document.body.style.height = '100vh';
-        const iframe = win.document.createElement('iframe');
-        iframe.style.border = 'none';
-        iframe.style.width = '100%';
-        iframe.style.height = '100%';
-        iframe.src = url;
-        win.document.body.appendChild(iframe);
-    }
+/* Runner */
+makeGame("Runner", `
+<body style="margin:0;background:black;overflow:hidden">
+<canvas id="c"></canvas>
+<script>
+let c=document.getElementById('c'),ctx=c.getContext('2d');
+c.width=innerWidth;c.height=innerHeight;
+let y=200,v=0;
+onclick=()=>v=-12;
+function g(){
+ctx.fillStyle='black';ctx.fillRect(0,0,c.width,c.height);
+v+=0.6;y+=v;if(y>c.height-40){y=c.height-40;v=0;}
+ctx.fillStyle='lime';ctx.fillRect(80,y,40,40);
+requestAnimationFrame(g);}g();
+</script>`);
 
-    sites.forEach(site => {
-        const card = document.createElement('div');
-        card.className = 'link-card';
-        card.innerHTML = `
-            <h2>${site.name}</h2>
-            <span class="category-label">${site.anime}</span>
-        `;
-        card.onclick = () => launchCloaked(site.url);
-        grid.appendChild(card);
-    });
+/* Clicker */
+makeGame("Clicker", `
+<body style="background:#fff;text-align:center">
+<h1>Clicker</h1>
+<h2 id=s>0</h2>
+<button onclick="s.innerText=++n" style="font-size:24px">CLICK</button>
+<script>let n=0;</script>`);
+
+/* Pong */
+makeGame("Pong", `
+<body style="margin:0;background:black">
+<canvas id=c></canvas>
+<script>
+let c=document.getElementById('c'),x=300,y=200,dx=3,dy=3,py=150;
+c.width=600;c.height=400;let ctx=c.getContext('2d');
+onmousemove=e=>py=e.clientY;
+function g(){
+ctx.fillRect(0,0,600,400);
+x+=dx;y+=dy;
+if(y<0||y>400)dy*=-1;
+if(x<20&&y>py&&y<py+80)dx*=-1;
+if(x>600)dx*=-1;
+ctx.fillStyle='white';
+ctx.fillRect(10,py,10,80);
+ctx.fillRect(x,y,10,10);
+requestAnimationFrame(g);}g();
+</script>`);
+
+/* Dodge */
+makeGame("Dodge", `
+<body style="margin:0;background:black">
+<canvas id=c></canvas>
+<script>
+let c=document.getElementById('c'),ctx=c.getContext('2d');
+c.width=innerWidth;c.height=innerHeight;
+let px=200,py=200;
+onmousemove=e=>{px=e.clientX;py=e.clientY;}
+function g(){
+ctx.fillRect(0,0,c.width,c.height);
+ctx.fillStyle='red';
+for(let i=0;i<10;i++)
+ctx.fillRect(Math.random()*c.width,Math.random()*c.height,20,20);
+ctx.fillStyle='cyan';
+ctx.fillRect(px,py,30,30);
+requestAnimationFrame(g);}g();
+</script>`);
+
+/* ---------- AUTO GENERATE 60 GAMES ---------- */
+while(games.length<60){
+  makeGame("Arcade "+games.length, games[games.length%4].code);
+}
+
+/* ---------- UI ---------- */
+
+const menu = document.getElementById("menu");
+const frame = document.getElementById("gameFrame");
+const aiText = document.getElementById("ai");
+
+games.forEach((g,i)=>{
+  const b=document.createElement("button");
+  b.textContent=g.title;
+  b.onclick=()=>frame.srcdoc=g.code;
+  menu.appendChild(b);
+});
+
+/* AI Random Game Picker */
+const aiBtn=document.createElement("button");
+aiBtn.textContent="🎲 Random";
+aiBtn.onclick=()=>{
+  let r=Math.floor(Math.random()*games.length);
+  frame.srcdoc=games[r].code;
+  aiText.textContent="AI Suggestion: Try playing " + games[r].title;
+};
+menu.appendChild(aiBtn);
 </script>
 
 </body>
