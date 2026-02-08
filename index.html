@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Z-WARRIOR TERMINAL</title>
     <style>
         body {
@@ -9,22 +10,23 @@
             color: #ff9900; /* Super Saiyan Orange */
             font-family: 'Courier New', monospace;
             margin: 0;
-            overflow-x: hidden;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Dragon Ball Z Themed Moving Background */
-        #bg-video {
+        /* DBZ Background */
+        .bg {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -2;
-            transform: translate(-50%, -50%);
-            opacity: 0.4;
-            filter: grayscale(1) brightness(0.5) sepia(1) hue-rotate(10deg);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJmZzRreGZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/EbRIxoUny8GJKkRZGZ/giphy.gif') no-repeat center center fixed;
+            background-size: cover;
+            filter: brightness(0.4) contrast(1.2);
         }
 
         .overlay {
@@ -33,64 +35,58 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 2px);
-            pointer-events: none;
+            background: rgba(0, 0, 0, 0.5);
             z-index: -1;
         }
 
-        .container {
-            padding: 40px;
-            max-width: 1000px;
-            margin: auto;
-        }
-
         h1 {
-            text-align: center;
-            text-shadow: 0 0 10px #ff0000;
-            letter-spacing: 8px;
-            border-bottom: 2px solid #ff9900;
-            padding-bottom: 10px;
+            margin-top: 50px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 20px #ff4500;
+            font-size: 2.5rem;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            width: 80%;
+            margin-top: 40px;
+            z-index: 1;
         }
 
-        .btn {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid #ff9900;
-            color: #ff9900;
-            padding: 15px;
+        .card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff9900;
+            padding: 20px;
             text-align: center;
             cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
             font-weight: bold;
+            transition: 0.2s;
+            text-transform: uppercase;
         }
 
-        .btn:hover {
+        .card:hover {
             background: #ff9900;
             color: #000;
-            box-shadow: 0 0 20px #ff9900;
+            box-shadow: 0 0 30px #ff9900;
             transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
+<div class="bg"></div>
 <div class="overlay"></div>
-<img id="bg-video" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJmZzRreGZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/EbRIxoUny8GJKkRZGZ/giphy.gif" alt="DBZ Background">
 
-<div class="container">
-    <h1>POWER_LEVEL: OVER_9000</h1>
-    <div class="grid" id="link-container"></div>
-</div>
+<h1>System: Over 9000</h1>
+
+<div class="grid" id="links"></div>
 
 <script>
-    const sites = [
+    // List of your tools
+    const toolset = [
         { name: "QuickChem", url: "https://quickchem.mrwheeler.uk/" },
         { name: "DeepCoding", url: "https://deepcoding.mrwheeler.uk/" },
         { name: "ModernMath", url: "https://modernmath.mrwheeler.uk/" },
@@ -106,25 +102,33 @@
         { name: "GoodVCSA", url: "https://goodvcsa.suwal.com.np/" }
     ];
 
-    const container = document.getElementById('link-container');
+    const container = document.getElementById('links');
 
-    sites.forEach(site => {
-        let div = document.createElement('div');
-        div.className = 'btn';
-        div.innerText = site.name;
-        div.onclick = () => {
-            // This is the "About:Blank" cloak logic
-            var win = window.open();
-            win.document.body.style.margin = '0';
-            win.document.body.style.height = '100vh';
-            var iframe = win.document.createElement('iframe');
-            iframe.style.border = 'none';
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            iframe.src = site.url;
-            win.document.body.appendChild(iframe);
+    toolset.forEach(tool => {
+        const btn = document.createElement('div');
+        btn.className = 'card';
+        btn.innerHTML = tool.name;
+        
+        btn.onclick = () => {
+            // THE CLOAK: Opens a new window as about:blank
+            const win = window.open('about:blank', '_blank');
+            if (win) {
+                win.document.body.style.margin = '0';
+                win.document.body.style.height = '100vh';
+                win.document.body.style.overflow = 'hidden';
+                
+                const iframe = win.document.createElement('iframe');
+                iframe.style.border = 'none';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.margin = '0';
+                iframe.src = tool.url;
+                
+                win.document.body.appendChild(iframe);
+            }
         };
-        container.appendChild(div);
+        
+        container.appendChild(btn);
     });
 </script>
 
