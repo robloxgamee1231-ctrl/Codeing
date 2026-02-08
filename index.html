@@ -2,173 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DBZ Super Launcher</title>
+    <title>System Dashboard</title>
     <style>
-        :root {
-            --orange: #FF5C00;
-            --blue: #002D62;
-            --gold: #FFD700;
-            --bg-overlay: rgba(0, 0, 0, 0.85);
-        }
-
         body {
+            background-color: black;
+            color: #00FF41; /* Classic Matrix Green */
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #111;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
-        /* BACKGROUND IMAGE SETUP */
-        .wallpaper {
+        /* Moving Background Effect */
+        #bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background-size: cover;
-            background-position: center;
-            /* PASTE YOUR DRAGON BALL IMAGE LINK BELOW inside url('') */
-            background-image: url('PASTE_IMAGE_URL_HERE'); 
-            filter: brightness(0.4);
+            opacity: 0.2;
+            background: linear-gradient(0deg, rgba(0, 255, 65, 0.1) 50%, transparent 50%);
+            background-size: 100% 4px;
+            animation: scan 4s linear infinite;
         }
 
-        /* HEADER */
-        header {
-            margin-top: 40px;
-            text-align: center;
-            border-bottom: 3px solid var(--orange);
-            padding-bottom: 20px;
-            width: 80%;
+        @keyframes scan {
+            from { background-position: 0 0; }
+            to { background-position: 0 100%; }
         }
 
-        h1 {
-            font-size: 3rem;
-            color: var(--gold);
-            text-shadow: 2px 2px var(--blue);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0;
-        }
-
-        /* BUTTON GRID */
         .container {
+            padding: 50px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-            width: 90%;
-            max-width: 1200px;
-            margin-top: 40px;
-            padding-bottom: 40px;
         }
 
-        .card {
-            background: linear-gradient(135deg, rgba(0, 45, 98, 0.9), rgba(0, 0, 0, 0.9));
-            border: 2px solid var(--orange);
-            border-radius: 15px;
-            height: 150px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        .link-card {
+            border: 1px solid #00FF41;
+            padding: 15px;
+            text-align: center;
             text-decoration: none;
-            color: white;
-            transition: transform 0.2s, box-shadow 0.2s;
-            position: relative;
-            overflow: hidden;
+            color: #00FF41;
+            transition: 0.3s;
+            background: rgba(0, 40, 0, 0.5);
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px var(--gold);
-            background: var(--orange);
-            border-color: var(--gold);
+        .link-card:hover {
+            background: #00FF41;
+            color: black;
+            box-shadow: 0 0 15px #00FF41;
         }
 
-        .card h2 {
-            font-size: 1.5rem;
-            margin: 0;
-            z-index: 2;
-        }
-
-        .card span {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            z-index: 2;
-        }
-
-        /* Custom "Power Up" animation effect */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .card:hover::before {
-            left: 100%;
-        }
-
+        h1 { text-align: center; letter-spacing: 5px; }
     </style>
 </head>
 <body>
 
-    <div class="wallpaper"></div>
+<div id="bg"></div>
 
-    <header>
-        <h1>Saiyan Command Center</h1>
-    </header>
+<h1>ACCESS_GRANTED: TOOLKIT</h1>
 
-    <div class="container">
-        <a href="https://now.gg" class="card">
-            <span>☁️</span>
-            <h2>now.gg</h2>
-        </a>
-
-        <a href="https://poki.com" class="card">
-            <span>🎮</span>
-            <h2>All Games</h2>
-        </a>
-
-        <a href="https://www.crazygames.com" class="card">
-            <span>🕹️</span>
-            <h2>Arcade Zone</h2>
-        </a>
-
-        <a href="https://www.coolmathgames.com" class="card">
-            <span>🧠</span>
-            <h2>Cool Math</h2>
-        </a>
-
-        <a href="https://1v1.lol" class="card">
-            <span>🔫</span>
-            <h2>1v1 Battle</h2>
-        </a>
-
-        <a href="https://www.geoguessr.com" class="card">
-            <span>🌍</span>
-            <h2>World Map</h2>
-        </a>
-
-        <a href="#" class="card"><span>Dragon Ball</span><h2>Slot 7</h2></a>
-        <a href="#" class="card"><span>Vegeta</span><h2>Slot 8</h2></a>
-        <a href="#" class="card"><span>Gohan</span><h2>Slot 9</h2></a>
-        <a href="#" class="card"><span>Piccolo</span><h2>Slot 10</h2></a>
-        <a href="#" class="card"><span>Trunks</span><h2>Slot 11</h2></a>
-        <a href="#" class="card"><span>Bulma</span><h2>Slot 12</h2></a>
-        <a href="#" class="card"><span>Krillin</span><h2>Slot 13</h2></a>
-        <a href="#" class="card"><span>Beerus</span><h2>Slot 14</h2></a>
-        <a href="#" class="card"><span>Whis</span><h2>Slot 15</h2></a>
-    </div>
+<div class="container">
+    <a class="link-card" href="https://quickchem.mrwheeler.uk/" target="_blank">QuickChem</a>
+    <a class="link-card" href="https://deepcoding.mrwheeler.uk/" target="_blank">DeepCoding</a>
+    <a class="link-card" href="https://modernmath.mrwheeler.uk/" target="_blank">ModernMath</a>
+    <a class="link-card" href="https://fastcalc.egevad.se/" target="_blank">FastCalc</a>
+    <a class="link-card" href="https://virtualenglish.egevad.se/" target="_blank">VirtualEnglish</a>
+    <a class="link-card" href="https://vcsa-yt.egevad.se/" target="_blank">VCSA-YT</a>
+    <a class="link-card" href="https://subscribe-vcsa.mrwheeler.uk/" target="_blank">Subscribe VCSA</a>
+    <a class="link-card" href="https://goodvcsa-yt.ploteando.com/" target="_blank">GoodVCSA YT</a>
+    <a class="link-card" href="https://playernation-vcsa.buenofood.ro/" target="_blank">PlayerNation</a>
+    <a class="link-card" href="https://sub-vcsa-for-more.dinprima.ro/" target="_blank">Sub-VCSA</a>
+    <a class="link-card" href="https://copiedfrom-vcsa.edujose.org/" target="_blank">Copied-VCSA</a>
+    <a class="link-card" href="https://vcsa.boredom.ploteando.com/" target="_blank">VCSA Boredom</a>
+    <a class="link-card" href="https://goodvcsa.suwal.com.np/" target="_blank">GoodVCSA</a>
+</div>
 
 </body>
 </html>
