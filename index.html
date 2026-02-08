@@ -3,286 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Command Center</title>
+    <title>Saiyan Game Hub - 4K Edition</title>
     <style>
-        /* CORE VARIABLES - Easy to change colors */
         :root {
-            --primary-color: #ff6b6b; /* Dragon Ball Orange/Red */
-            --secondary-color: #4ecdc4; /* Miku Blue / Generic Anime */
-            --dark-bg: #1a1a2e;
-            --card-bg: #16213e;
-            --text-color: #e94560;
-            --white: #ffffff;
-            --shadow: 0 4px 15px rgba(0,0,0,0.5);
+            /* Dragon Ball Color Palette */
+            --goku-orange: #ff5e00;
+            --goku-blue: #0040ff;
+            --super-saiyan-gold: #ffd700;
+            --energy-blast: #00ffff;
+            --dark-bg: #0b0d17;
+            --card-bg: rgba(11, 13, 23, 0.85);
         }
 
-        /* RESET & BASE STYLES */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Impact, sans-serif;
         }
 
         body {
             background-color: var(--dark-bg);
-            color: var(--white);
+            color: white;
+            min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* ANIMATED BACKGROUND */
-        .bg-animation {
+        /* BACKGROUND IMAGE SECTION
+           Replace the URL below with your 4K Dragon Ball Wallpaper link.
+           Currently set to a cool gradient as a placeholder.
+        */
+        .background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            /* PASTE YOUR IMAGE LINK INSIDE THE URL('') BELOW */
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                              url('https://images.unsplash.com/photo-1534237710405-c533240292c4?q=80&w=3870&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* HEADER */
+        /* HEADER STYLES */
         header {
             text-align: center;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--primary-color);
+            padding: 2rem 1rem;
+            border-bottom: 3px solid var(--goku-orange);
+            background: linear-gradient(to right, rgba(0,0,0,0.8), var(--goku-blue), rgba(0,0,0,0.8));
+            box-shadow: 0 0 20px var(--energy-blast);
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--white);
-            text-shadow: 0 0 10px var(--primary-color);
+            color: var(--super-saiyan-gold);
+            text-shadow: 2px 2px 0px var(--goku-orange), 0 0 15px var(--super-saiyan-gold);
+            letter-spacing: 2px;
+            font-style: italic;
         }
 
-        /* NAVIGATION TABS */
-        .nav-container {
+        p.subtitle {
+            color: var(--energy-blast);
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            text-shadow: 0 0 5px var(--energy-blast);
+        }
+
+        /* SEARCH BAR */
+        .search-container {
             display: flex;
             justify-content: center;
-            margin-top: 1rem;
-            gap: 1rem;
-            flex-wrap: wrap;
+            margin: 20px 0;
         }
 
-        .theme-btn {
-            background: transparent;
-            border: 2px solid var(--white);
-            color: var(--white);
-            padding: 0.5rem 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
+        input[type="text"] {
+            padding: 12px 20px;
+            width: 300px;
             border-radius: 25px;
+            border: 2px solid var(--goku-orange);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
         }
 
-        .theme-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 15px var(--white);
+        input[type="text"]:focus {
+            width: 350px;
+            box-shadow: 0 0 15px var(--goku-orange);
+            border-color: var(--super-saiyan-gold);
         }
 
-        /* THEME SPECIFIC CLASSES */
-        .theme-dbz:hover { border-color: #FF8C00; color: #FF8C00; box-shadow: 0 0 15px #FF8C00; }
-        .theme-aot:hover { border-color: #556B2F; color: #556B2F; box-shadow: 0 0 15px #556B2F; }
-        .theme-slayer:hover { border-color: #00CED1; color: #00CED1; box-shadow: 0 0 15px #00CED1; }
-        .theme-saitama:hover { border-color: #FFFF00; color: #FFFF00; box-shadow: 0 0 15px #FFFF00; }
-
-        /* GRID LAYOUT */
-        .main-content {
+        /* GRID SYSTEM (15 SLOTS) */
+        .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 2rem;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* CARDS (Games/Wallpapers) */
-        .card {
+        .game-card {
             background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-            position: relative;
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-            z-index: 10;
-        }
-
-        .card-img-placeholder {
-            width: 100%;
-            height: 200px;
-            background: #333;
+            border: 1px solid var(--goku-blue);
+            border-radius: 12px;
+            height: 180px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            color: #777;
-            text-align: center;
-            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
         }
 
-        /* Use real images here by changing the 'background' CSS in style tag or inline */
-        .card-content {
-            padding: 1.5rem;
+        .game-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: var(--super-saiyan-gold);
+            box-shadow: 0 0 20px var(--super-saiyan-gold);
+            background: rgba(0, 64, 255, 0.4);
         }
 
-        .card h3 {
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: 0.5s;
+            opacity: 0;
         }
 
-        .card p {
-            font-size: 0.9rem;
-            color: #ccc;
-            margin-bottom: 1rem;
+        .game-card:hover::before {
+            opacity: 1;
+            left: 100%;
         }
 
-        .play-btn {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: var(--primary-color);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 5px;
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .game-title {
             font-weight: bold;
-            transition: background 0.3s;
-        }
-
-        .play-btn:hover {
-            background: var(--text-color);
+            font-size: 1.1rem;
+            text-align: center;
+            color: white;
         }
 
         /* FOOTER */
         footer {
             text-align: center;
-            padding: 2rem;
+            padding: 20px;
+            background: rgba(0,0,0,0.9);
             color: #777;
-            margin-top: 2rem;
-            border-top: 1px solid #333;
+            margin-top: auto;
+            border-top: 1px solid var(--goku-orange);
         }
 
-        /* MOBILE RESPONSIVENESS */
+        /* MOBILE OPTIMIZATION */
         @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            .nav-container { flex-direction: column; align-items: center; }
-            .theme-btn { width: 80%; }
+            h1 { font-size: 2rem; }
+            .grid-container { padding: 15px; grid-template-columns: repeat(2, 1fr); }
+            .game-card { height: 140px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-animation"></div>
+    <div class="background"></div>
 
     <header>
-        <h1>Anime Command Center</h1>
-        <p>Select your theme style below</p>
-        <div class="nav-container">
-            <button class="theme-btn theme-dbz" onclick="changeTheme('#FF8C00', '#00008B')">Dragon Ball Style</button>
-            <button class="theme-btn theme-aot" onclick="changeTheme('#556B2F', '#8B4513')">Titan Style</button>
-            <button class="theme-btn theme-slayer" onclick="changeTheme('#00CED1', '#2F4F4F')">Slayer Style</button>
-            <button class="theme-btn theme-saitama" onclick="changeTheme('#FFFF00', '#DC143C')">One Punch Style</button>
-        </div>
+        <h1>Z-FIGHTER HUB</h1>
+        <p class="subtitle">Power Level: Over 9000</p>
     </header>
 
-    <div class="main-content">
-        <div class="card">
-            <div class="card-img-placeholder" style="background: linear-gradient(45deg, #FF8C00, #FF4500);">
-                [Insert Dragon Ball Image Here]
-            </div>
-            <div class="card-content">
-                <h3>Action RPG</h3>
-                <p>A fast-paced fighting game inspired by Saiyan warriors.</p>
-                <a href="#" class="play-btn">Play Now</a>
-            </div>
+    <div class="search-container">
+        <input type="text" placeholder="Search Google..." onkeypress="handleSearch(event)">
+    </div>
+
+    <div class="grid-container">
+        <a href="https://www.chess.com" class="game-card" style="text-decoration: none;">
+            <div class="icon">♟️</div>
+            <div class="game-title">Strategy</div>
+        </a>
+
+        <a href="https://poki.com" class="game-card" style="text-decoration: none;">
+            <div class="icon">🎮</div>
+            <div class="game-title">Arcade</div>
+        </a>
+
+        <a href="https://scratch.mit.edu" class="game-card" style="text-decoration: none;">
+            <div class="icon">😺</div>
+            <div class="game-title">Scratch</div>
+        </a>
+
+        <a href="https://www.geoguessr.com" class="game-card" style="text-decoration: none;">
+            <div class="icon">🌍</div>
+            <div class="game-title">Geo Map</div>
+        </a>
+
+        <a href="https://www.coolmathgames.com" class="game-card" style="text-decoration: none;">
+            <div class="icon">➕</div>
+            <div class="game-title">Math Logic</div>
+        </a>
+
+        <div class="game-card" onclick="alert('Add your link in the code!')">
+            <div class="icon">⚔️</div>
+            <div class="game-title">RPG Slot</div>
         </div>
 
-        <div class="card">
-            <div class="card-img-placeholder" style="background: linear-gradient(45deg, #556B2F, #3e4a22);">
-                [Insert Attack on Titan Image]
-            </div>
-            <div class="card-content">
-                <h3>Wall Defense</h3>
-                <p>Defend the city walls from incoming giants in this strategy game.</p>
-                <a href="#" class="play-btn">Play Now</a>
-            </div>
+        <div class="game-card" onclick="alert('Add your link in the code!')">
+            <div class="icon">🏎️</div>
+            <div class="game-title">Racing</div>
         </div>
 
-        <div class="card">
-            <div class="card-img-placeholder" style="background: linear-gradient(45deg, #2F4F4F, #00CED1);">
-                [Insert Demon Slayer Image]
-            </div>
-            <div class="card-content">
-                <h3>HD Wallpapers</h3>
-                <p>Download high-resolution backgrounds for your Android or Chromebook.</p>
-                <a href="#" class="play-btn">Browse Gallery</a>
-            </div>
+        <div class="game-card" onclick="alert('Add your link in the code!')">
+            <div class="icon">🧩</div>
+            <div class="game-title">Puzzle</div>
         </div>
 
-        <div class="card">
-            <div class="card-img-placeholder" style="background: linear-gradient(45deg, #FFFF00, #DC143C);">
-                [Insert One Punch Man Image]
-            </div>
-            <div class="card-content">
-                <h3>Hero Trainer</h3>
-                <p>100 pushups, 100 situps, 100 squats, and a 10km run.</p>
-                <a href="#" class="play-btn">Start Training</a>
-            </div>
-        </div>
-        
-         <div class="card">
-            <div class="card-img-placeholder" style="background: linear-gradient(45deg, #000, #ff6600);">
-                [Insert Bleach Image]
-            </div>
-            <div class="card-content">
-                <h3>Soul Reaper</h3>
-                <p>Protect the spirit world and defeat hollows.</p>
-                <a href="#" class="play-btn">Enter Society</a>
-            </div>
+        <div class="game-card" onclick="alert('Add your link in the code!')">
+            <div class="icon">⚽</div>
+            <div class="game-title">Sports</div>
         </div>
 
-         <div class="card">
-            <div class="card-img-placeholder" style="background: linear-gradient(45deg, #444, #777);">
-                [Insert Teen Titans Image]
-            </div>
-            <div class="card-content">
-                <h3>Tower Defense 2008</h3>
-                <p>Classic strategy game defending the T-Tower.</p>
-                <a href="#" class="play-btn">Go!</a>
-            </div>
+        <div class="game-card" onclick="alert('Add your link in the code!')">
+            <div class="icon">🚀</div>
+            <div class="game-title">Space</div>
+        </div>
+
+        <div class="game-card" onclick="alert('Add your link in the code!')">
+            <div class="icon">🏰</div>
+            <div class="game-title">Defense</div>
+        </div>
+
+        <div class="game-card" onclick="alert('Add your link in the code!')">
+            <div class="icon">👻</div>
+            <div class="game-title">Horror</div>
+        </div>
+
+        <div class="game-card" onclick="alert('Add your link in the code!')">
+            <div class="icon">🎨</div>
+            <div class="game-title">Drawing</div>
+        </div>
+
+        <div class="game-card" onclick="alert('Add your link in the code!')">
+            <div class="icon">🎹</div>
+            <div class="game-title">Music</div>
+        </div>
+
+        <div class="game-card" onclick="alert('Add your link in the code!')">
+            <div class="icon">🐉</div>
+            <div class="game-title">Anime News</div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2024 Anime Command Center - Personal Use Only</p>
+        <p>Custom Dashboard • Optimized for Chromebook & Android</p>
     </footer>
 
     <script>
-        // Simple JavaScript to handle theme switching dynamically
-        function changeTheme(primary, secondary) {
-            const root = document.documentElement;
-            root.style.setProperty('--primary-color', primary);
-            root.style.setProperty('--text-color', primary);
-            
-            // Add a glow effect to the header temporarily
-            const header = document.querySelector('header');
-            header.style.boxShadow = `0 0 20px ${primary}`;
-            setTimeout(() => {
-                header.style.boxShadow = 'none';
-            }, 500);
+        // Simple Google Search Function
+        function handleSearch(e) {
+            if (e.key === 'Enter') {
+                window.location.href = 'https://www.google.com/search?q=' + e.target.value;
+            }
         }
     </script>
 </body>
