@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Practice Center | Math, Language Arts, Science, Social Studies, and Spanish</title>
+  <meta name="description" content="A free K-12 practice site covering math, language arts, science, social studies and Spanish. Thousands of skill-based questions with instant feedback, progress tracking and awards keep students motivated as they work at their own pace."/>
+  <meta property="og:title" content="Student Practice Center | Math, Language Arts, Science, Social Studies, and Spanish"/>
+  <meta property="og:description" content="A free K-12 practice site covering math, language arts, science, social studies and Spanish. Thousands of skill-based questions with instant feedback, progress tracking and awards keep students motivated as they work at their own pace."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Student Practice Center"/>
+  <meta property="og:image" content="https://s3.amazonaws.com/thinkbabyy/logo-1024.png"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&family=Outfit:wght@300..700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
