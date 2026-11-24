@@ -1,0 +1,7 @@
+probe-v2 brackets: c[m] mList[mIdx] Blob([html] A[m]B[h]C[i]D[c]E t%c.length
+js: const x = arr[0]; fn([a, b]); new Blob([html], {type: 'text/html'}); o["k"] = list[i][j]; t = `${a[0]}`;
+json: {"a": [1, 2, [3]], "b": {"c": [4]}, "d": [[5], [6]]}
+html: <div class="x" data-y='[1,2]'>n</div> <a href="#top">go</a>
+fold marker literal: @@FOLD@@ midline
+LONG:a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];a[i]=b[j];END
+END-PROBE
